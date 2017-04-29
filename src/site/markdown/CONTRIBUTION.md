@@ -65,7 +65,7 @@ org.springframework.security.web.access.ExceptionTranslationFilter
 重点查看
 
 configurer的顺序:
-com.yirendai.oss.lib.security.starter.WebApplicationSecurityAutoConfiguration#securityConfigurers
+cn.home1.oss.lib.security.starter.WebApplicationSecurityAutoConfiguration#securityConfigurers
 
 filterChains的内容和filters, 尤其注意只应有一个AnyRequestMatcher.
 org.springframework.security.web.FilterChainProxy#getFilters

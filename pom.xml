@@ -5,30 +5,31 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.yirendai.infra</groupId>
+        <groupId>cn.home1</groupId>
         <artifactId>oss-build</artifactId>
-        <version>1.0.8.OSS-SNAPSHOT</version>
+        <version>1.0.9.OSS</version>
     </parent>
 
     <artifactId>oss-lib-security</artifactId>
+    <description>Security lib for spring-boot based web projects based on spring-security</description>
     <name>oss-lib-security</name>
     <packaging>pom</packaging>
-    <version>1.0.7.OSS-SNAPSHOT</version>
     <url>https://github.com/home1-oss/oss-lib-security</url>
+    <version>1.0.7.OSS-SNAPSHOT</version>
 
+    <ciManagement>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/home1-oss/oss-lib-security</url>
+    </ciManagement>
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/home1-oss/oss-lib-security/issues</url>
+    </issueManagement>
     <scm>
         <connection>scm:git:https://github.com/home1-oss/oss-lib-security.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/home1-oss/oss-lib-security.git</developerConnection>
         <url>https://github.com/home1-oss/oss-lib-security</url>
     </scm>
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/home1-oss/oss-lib-security/issues</url>
-    </issueManagement>
-    <ciManagement>
-        <system>Travis CI</system>
-        <url>https://travis-ci.org/home1-oss/oss-lib-security</url>
-    </ciManagement>
 
     <modules>
         <module>oss-lib-security-spring-boot-1.4.1.RELEASE</module>
@@ -36,6 +37,6 @@
     </modules>
 
     <properties>
-        <oss-common-dependencies.version>1.0.8.OSS-SNAPSHOT</oss-common-dependencies.version>
+        <oss-common-dependencies.version>1.0.8.OSS</oss-common-dependencies.version>
     </properties>
 </project>
