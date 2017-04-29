@@ -37,7 +37,7 @@
   
 #### 支持验证码
 
-> 应用需要实现`com.yirendai.oss.lib.security.api.VerifyCodeProvider`，来自定义验证码的获取地址和匹配规则
+> 应用需要实现`cn.home1.oss.lib.security.api.VerifyCodeProvider`，来自定义验证码的获取地址和匹配规则
 
     app.security.verifyCode: true
 
@@ -46,25 +46,25 @@
 
 #### 用户和扩展信息
 
-> 实现 `com.yirendai.oss.lib.security.api.User` 可以通过 `public Map&lt;String, Object&gt; 
+> 实现 `cn.home1.oss.lib.security.api.User` 可以通过 `public Map&lt;String, Object&gt; 
   getProperties()` 方法返回用户的其他扩展信息.  
 
 #### 角色
     
 > 角色是对用户身份的一种抽象。  
-> 应用通过继承 `com.yirendai.oss.lib.security.api.AbstractRole` 来定义自己的用户角色.  
-  `AbstractRole`会默认插入前缀 `ROLE_`到角色的描述信息中 (*com.yirendai.oss.lib.security.api.Security.ROLE_PREFIX*).  
+> 应用通过继承 `cn.home1.oss.lib.security.api.AbstractRole` 来定义自己的用户角色.  
+  `AbstractRole`会默认插入前缀 `ROLE_`到角色的描述信息中 (*cn.home1.oss.lib.security.api.Security.ROLE_PREFIX*).  
 
 #### 权限
 
 > 权限是对用户针对某种资源的是否可以访问给出的定义。  
-> 应用通过实现接口 *com.yirendai.oss.lib.security.api.StaticPrivilege* 来定义自己的权限.  
-   `StaticPrivilege`默认会插入前缀`PRIVILEGE_`到权限的描述信息中 (*com.yirendai.oss.lib.security.api.StaticPrivilege
+> 应用通过实现接口 *cn.home1.oss.lib.security.api.StaticPrivilege* 来定义自己的权限.  
+   `StaticPrivilege`默认会插入前缀`PRIVILEGE_`到权限的描述信息中 (*cn.home1.oss.lib.security.api.StaticPrivilege
    .PRIVILEGE_PREFIX*).
 
 #### 默认的测试用户
 
-> 应用通过继承实现 `com.yirendai.oss.lib.security.api.BaseUserDetailsAuthenticationProvider#testUsers().`来添加测试账户    
+> 应用通过继承实现 `cn.home1.oss.lib.security.api.BaseUserDetailsAuthenticationProvider#testUsers().`来添加测试账户    
     
     app.security.defaultTestUser:'test_user'
 
@@ -100,4 +100,4 @@
         permited: '/permited/**,/img/*' # 无须认证授权的url,多个用,隔开
         loginPage: ’/login‘			# 自定义的进入登录页面的url  /auth/login get方式 TEMPLATE类型需要定义
         authSucessHandler:'/index' # 登陆成功后跳转到的页面，template应用可以在此制定跳转页
-        verifyCode: true            # 是否开启验证码功能，默认false，开启需要实现com.yirendai.oss.lib.security.api.VerifyCodeProvider
+        verifyCode: true            # 是否开启验证码功能，默认false，开启需要实现cn.home1.oss.lib.security.api.VerifyCodeProvider

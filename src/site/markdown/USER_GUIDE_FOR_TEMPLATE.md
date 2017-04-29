@@ -23,17 +23,17 @@
 	    authSucessHandler : '/cluster/list.do'
 
 ##### 用户模型
-> 继承`com.yirendai.oss.lib.security.api.AbstractUser`类并实现父类抽象方法，按需覆写父类方法。关于额外的用户信息，可以通过扩展`public Map<String, Object> 
+> 继承`cn.home1.oss.lib.security.api.AbstractUser`类并实现父类抽象方法，按需覆写父类方法。关于额外的用户信息，可以通过扩展`public Map<String, Object> 
 getProperties()`来实现
 
 ##### 角色模型  
-> 继承 `com.yirendai.oss.lib.security.api.AbstractRole` 类，来存储用户角色的信息，
+> 继承 `cn.home1.oss.lib.security.api.AbstractRole` 类，来存储用户角色的信息，
 
 ##### 权限模型  
-> 继承`com.yirendai.oss.lib.security.api.StaticPrivilege`类，来做静态资源权限的定义,
+> 继承`cn.home1.oss.lib.security.api.StaticPrivilege`类，来做静态资源权限的定义,
 
 ##### Service层实现  
-1. 继承`com.yirendai.oss.lib.security.api.BaseUserDetailsAuthenticationProvider` 抽象类,
+1. 继承`cn.home1.oss.lib.security.api.BaseUserDetailsAuthenticationProvider` 抽象类,
 该类已经实现了`UserDetailsService`接口并hook了`ContextRefreshedEvent`事件.
 2. lib-security不假定用户的存储逻辑，用户只需重写 findByName、save、delete等方法即可.  
 3. 可以重写该类的 testUsers 方法，生成测试用户方便测试。 

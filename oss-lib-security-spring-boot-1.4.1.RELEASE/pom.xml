@@ -5,19 +5,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.yirendai.infra</groupId>
+        <groupId>cn.home1</groupId>
         <artifactId>oss-lib-security</artifactId>
-        <version>1.0.7.OSS-SNAPSHOT</version>
+        <version>1.0.7.OSS</version>
     </parent>
 
     <artifactId>oss-lib-security-spring-boot-1.4.1.RELEASE</artifactId>
     <name>oss-lib-security-spring-boot-1.4.1.RELEASE</name>
     <packaging>jar</packaging>
 
+    <build>
+        <sourceDirectory>../src/main/java</sourceDirectory>
+        <testSourceDirectory>../src/test/java</testSourceDirectory>
+    </build>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.yirendai.infra</groupId>
+                <groupId>cn.home1</groupId>
                 <artifactId>oss-common-dependencies-spring-boot-1.4.1.RELEASE</artifactId>
                 <version>${oss-common-dependencies.version}</version>
                 <type>pom</type>
@@ -30,7 +35,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>oss-lib-errorhandle-spring-boot-1.4.1.RELEASE</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.7.OSS</version>
         </dependency>
 
         <dependency>
@@ -66,7 +71,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>oss-lib-swagger-spring-boot-1.4.1.RELEASE</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.7.OSS</version>
             <optional>true</optional>
         </dependency>
         <dependency>

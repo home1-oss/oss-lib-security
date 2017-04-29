@@ -41,7 +41,7 @@
   
 #### Verify code support
 
-  Provide a *com.yirendai.oss.lib.security.api.VerifyCodeProvider* implementation.
+  Provide a *cn.home1.oss.lib.security.api.VerifyCodeProvider* implementation.
 
     app.security.verifyCode
 
@@ -51,7 +51,7 @@
 
 #### User and extended properties
 
-  Implements *com.yirendai.oss.lib.security.api.User* and provide extended properties using *public Map&lt;String, Object&gt; getProperties()* method.  
+  Implements *cn.home1.oss.lib.security.api.User* and provide extended properties using *public Map&lt;String, Object&gt; getProperties()* method.  
 
 #### Role
 
@@ -60,7 +60,7 @@
   User ..M:N .. Role  
   
   User should provide *org.springframework.security.core.GrantedAuthority* implementations.  
-  Authority name should start with "ROLE_" (*com.yirendai.oss.lib.security.api.Security.ROLE_PREFIX*).  
+  Authority name should start with "ROLE_" (*cn.home1.oss.lib.security.api.Security.ROLE_PREFIX*).  
 
 
 #### Privilege
@@ -69,13 +69,13 @@
 
   Role ..M:N .. Privilege  
   
-  User should provide *com.yirendai.oss.lib.security.api.StaticPrivilege* implementations.  
-  Authority name should start with "PRIVILEGE_" (*com.yirendai.oss.lib.security.api.StaticPrivilege.PRIVILEGE_PREFIX*).    
+  User should provide *cn.home1.oss.lib.security.api.StaticPrivilege* implementations.  
+  Authority name should start with "PRIVILEGE_" (*cn.home1.oss.lib.security.api.StaticPrivilege.PRIVILEGE_PREFIX*).    
 
 
 #### (Default) Test user
 
-  User should provide all test users by override com.yirendai.oss.lib.security.api.BaseUserDetailsAuthenticationProvider&lt;T&gt;#protected List&lt;T&gt; testUsers().  
+  User should provide all test users by override cn.home1.oss.lib.security.api.BaseUserDetailsAuthenticationProvider&lt;T&gt;#protected List&lt;T&gt; testUsers().  
 
     app.security.defaultTestUser:'test_user'
 
@@ -106,7 +106,7 @@
 
     app.security.enabled=true # true | false, TODO 涉及哪些功能的开关
     app.security.cookieKey= # AES key for encrypt / decrypt cookie, TODO 如何获得, 格式
-    app.security.defaultTestUser= # default test user's name, see: com.yirendai.oss.lib.security.api.BaseUserDetailsAuthenticationProvider .
+    app.security.defaultTestUser= # default test user's name, see: cn.home1.oss.lib.security.api.BaseUserDetailsAuthenticationProvider .
 
 #### Form login properties
     
@@ -118,7 +118,7 @@
     app.security.loginPage=/login
     app.security.loginProcessingUrl=/api/login # URL for login form POST request.  
     app.security.logoutUrl=/api/logout # URL for logout request.  
-    app.security.verifyCode=false # true | false, enable verifyCode or not. Need to provide com.yirendai.oss.lib.security.api.VerifyCodeProvider if enabled.  
+    app.security.verifyCode=false # true | false, enable verifyCode or not. Need to provide cn.home1.oss.lib.security.api.VerifyCodeProvider if enabled.  
 
 ## Used spring-boot properties
     

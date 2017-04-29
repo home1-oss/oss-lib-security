@@ -1,16 +1,16 @@
 package org.springframework.security.config.annotation.web.configurers;
 
-import static com.yirendai.oss.lib.security.internal.template.TemplateAuthenticationEntryPoint.templateEntryPoint;
+import static cn.home1.oss.lib.security.internal.template.TemplateAuthenticationEntryPoint.templateEntryPoint;
 import static org.springframework.util.ClassUtils.isAssignableValue;
 import static org.springframework.util.ReflectionUtils.findField;
 import static org.springframework.util.ReflectionUtils.getField;
 import static org.springframework.util.ReflectionUtils.makeAccessible;
 
-import com.yirendai.oss.lib.errorhandle.api.ExceptionResolver;
-import com.yirendai.oss.lib.errorhandle.api.ResolvedError;
-import com.yirendai.oss.lib.security.internal.template.EncryptDefaultLoginPageGeneratingFilter;
-import com.yirendai.oss.lib.security.internal.template.TemplateAuthenticationEntryPoint;
-import com.yirendai.oss.lib.webmvc.api.TypeSafeCookie;
+import cn.home1.oss.lib.errorhandle.api.ExceptionResolver;
+import cn.home1.oss.lib.errorhandle.api.ResolvedError;
+import cn.home1.oss.lib.security.internal.template.EncryptDefaultLoginPageGeneratingFilter;
+import cn.home1.oss.lib.security.internal.template.TemplateAuthenticationEntryPoint;
+import cn.home1.oss.lib.webmvc.api.TypeSafeCookie;
 
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
 import org.springframework.security.web.AuthenticationEntryPoint;
