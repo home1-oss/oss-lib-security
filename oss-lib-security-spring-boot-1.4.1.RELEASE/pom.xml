@@ -14,6 +14,11 @@
     <name>oss-lib-security-spring-boot-1.4.1.RELEASE</name>
     <packaging>jar</packaging>
 
+    <build>
+        <sourceDirectory>../src/main/java</sourceDirectory>
+        <testSourceDirectory>../src/test/java</testSourceDirectory>
+    </build>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
