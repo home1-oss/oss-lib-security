@@ -38,7 +38,5 @@
 
     <properties>
         <oss-common-dependencies.version>1.0.10.OSS</oss-common-dependencies.version>
-
-        <sonar.java.binaries>**/target/classes</sonar.java.binaries>
     </properties>
 </project>
