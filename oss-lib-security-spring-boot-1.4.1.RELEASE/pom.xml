@@ -71,7 +71,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>oss-lib-swagger-spring-boot-1.4.1.RELEASE</artifactId>
-            <version>1.0.7.OSS</version>
+            <version>1.0.8.OSS</version>
             <optional>true</optional>
         </dependency>
         <dependency>
