@@ -2,16 +2,16 @@ package cn.home1.oss.lib.security.starter;
 
 import static cn.home1.oss.boot.autoconfigure.AppSecurity.ENABLED;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import cn.home1.oss.boot.autoconfigure.ConditionalOnAppSecurity;
 import cn.home1.oss.boot.autoconfigure.ConditionalOnNotEnvProduction;
 import cn.home1.oss.lib.security.swagger.AfterOperationBuilderBuildPlugin;
 import cn.home1.oss.lib.security.swagger.AuthenticationTokenHeaderBuilderPlugin;
 import cn.home1.oss.lib.security.swagger.BasicAuthHeaderBuilderPlugin;
 import cn.home1.oss.lib.security.swagger.SecurityApiDocumentationPlugin;
-
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @ConditionalOnClass(name = {"springfox.documentation.RequestHandler"})
 @ConditionalOnNotEnvProduction

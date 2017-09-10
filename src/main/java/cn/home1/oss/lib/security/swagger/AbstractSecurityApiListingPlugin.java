@@ -6,7 +6,6 @@ import static com.google.common.collect.Sets.newHashSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,7 +22,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.ApiListingBuilderPlugin;
 import springfox.documentation.spi.service.contexts.ApiListingContext;
 import springfox.documentation.spi.service.contexts.DocumentationContext;
-import springfox.documentation.swagger.common.SwaggerPluginSupport;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -35,8 +33,7 @@ import java.util.Optional;
  * Created by zhanghaolun on 16/10/31.
  */
 @Deprecated
-@Order(value = SwaggerPluginSupport.SWAGGER_PLUGIN_ORDER)
-public class SecurityApiListingPlugin implements ApiListingBuilderPlugin { //
+abstract public class AbstractSecurityApiListingPlugin implements ApiListingBuilderPlugin { //
   // ApiListingScannerPlugin not working, debug at DocumentationPluginsManager#additionalListings
 
   //  @Override
@@ -50,7 +47,7 @@ public class SecurityApiListingPlugin implements ApiListingBuilderPlugin { //
     //  apiListingContext.apiListingBuilder() //
     //  .apis(this.additionalOperations());
 
-    final Class<?> controllerClass = apiListingContext.getResourceGroup().getControllerClass();
+    final Class<?> controllerClass = this.controllerClass(apiListingContext);
     if (controllerClass != null && !controllerClass.getName().startsWith("org.springframework.boot.actuate")) {
       final ApiListingBuilder builder = apiListingContext.apiListingBuilder();
       final Field field = ReflectionUtils.findField(builder.getClass(), "apis");
@@ -71,6 +68,8 @@ public class SecurityApiListingPlugin implements ApiListingBuilderPlugin { //
   public boolean supports(final DocumentationType documentationType) {
     return DocumentationType.SWAGGER_2.equals(documentationType);
   }
+
+  abstract protected Class<?> controllerClass(ApiListingContext apiListingContext);
 
   private List<ApiDescription> additionalOperations() {
     return Lists.newArrayList(

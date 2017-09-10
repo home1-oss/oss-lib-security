@@ -10,8 +10,8 @@
         <version>1.0.10.OSS-SNAPSHOT</version>
     </parent>
 
-    <artifactId>oss-lib-security-spring-boot-1.4.2.RELEASE</artifactId>
-    <name>oss-lib-security-spring-boot-1.4.2.RELEASE</name>
+    <artifactId>oss-lib-security-spring-boot-1.5.4.RELEASE</artifactId>
+    <name>oss-lib-security-spring-boot-1.5.4.RELEASE</name>
     <packaging>jar</packaging>
 
     <build>
@@ -29,7 +29,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/main/java-spring-boot-1.4.x</source>
+                                <source>src/main/java-spring-boot-1.5.x</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -42,7 +42,7 @@
         <dependencies>
             <dependency>
                 <groupId>cn.home1</groupId>
-                <artifactId>oss-common-dependencies-spring-boot-1.4.2.RELEASE</artifactId>
+                <artifactId>oss-common-dependencies-spring-boot-1.5.4.RELEASE</artifactId>
                 <version>${oss-common-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -53,13 +53,13 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>oss-lib-errorhandle-spring-boot-1.4.2.RELEASE</artifactId>
+            <artifactId>oss-lib-errorhandle-spring-boot-1.5.4.RELEASE</artifactId>
             <version>1.0.10.OSS-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>oss-lib-swagger-spring-boot-1.4.2.RELEASE</artifactId>
+            <artifactId>oss-lib-swagger-spring-boot-1.5.4.RELEASE</artifactId>
             <version>1.0.10.OSS-SNAPSHOT</version>
             <optional>true</optional>
         </dependency>

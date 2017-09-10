@@ -2,18 +2,12 @@ package cn.home1.oss.lib.security.swagger;
 
 import static com.google.common.collect.Sets.newHashSet;
 import static springfox.documentation.schema.ResolvedTypes.modelRefFactory;
-import static springfox.documentation.spi.schema.contexts.ModelContext.returnValue;
-
-import cn.home1.oss.lib.errorhandle.api.ResolvedError;
-import cn.home1.oss.lib.swagger.ManualRequestHandler;
-import cn.home1.oss.lib.swagger.model.ApiOperationInfo;
 
 import com.fasterxml.classmate.TypeResolver;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 
 import springfox.documentation.RequestHandler;
@@ -27,25 +21,27 @@ import springfox.documentation.spi.schema.contexts.ModelContext;
 import springfox.documentation.spi.service.OperationBuilderPlugin;
 import springfox.documentation.spi.service.contexts.OperationContext;
 import springfox.documentation.spi.service.contexts.RequestMappingContext;
-import springfox.documentation.swagger.common.SwaggerPluginSupport;
 
 import java.lang.reflect.Field;
 import java.util.Set;
 
+import cn.home1.oss.lib.errorhandle.api.ResolvedError;
+import cn.home1.oss.lib.swagger.ManualRequestHandler;
+import cn.home1.oss.lib.swagger.model.ApiOperationInfo;
+
 /**
- * Created on 16/11/1.
- * Desc : Run after scanning operationBuilder plugin
+ * Created on 16/11/1. Desc : Run after scanning operationBuilder plugin
  */
-@Order(SwaggerPluginSupport.SWAGGER_PLUGIN_ORDER + 10)
 @Slf4j
-public class AfterOperationBuilderBuildPlugin implements OperationBuilderPlugin {
+abstract public class AbstractAfterOperationBuilderBuildPlugin implements OperationBuilderPlugin {
 
   private static final String MANUAL_REQUEST_HANDLER = ManualRequestHandler.class.getSimpleName();
 
   @Autowired
-  private TypeResolver typeResolver;
-  @Autowired
   private TypeNameExtractor nameExtractor;
+
+  @Autowired
+  protected TypeResolver typeResolver;
 
   @Override
   public void apply(final OperationContext context) {
@@ -91,19 +87,14 @@ public class AfterOperationBuilderBuildPlugin implements OperationBuilderPlugin 
   /**
    * 为错误码的响应增加Model的映射 @cn.home1.oss.lib.errorhandle.api.ResolvedError
    */
-  private void processResponseModel(OperationContext context) {
+  private void processResponseModel(final OperationContext context) {
     try {
       final OperationBuilder operationBuilder = context.operationBuilder();
       final Field privateStringField = OperationBuilder.class.getDeclaredField("responseMessages");
       privateStringField.setAccessible(true);
       final Set<ResponseMessage> responseMessages = (Set<ResponseMessage>) privateStringField.get(operationBuilder);
 
-      final ModelContext modelContext = returnValue( //
-        this.typeResolver.resolve(context.getReturnType()),
-        context.getDocumentationType(),
-        context.getAlternateTypeProvider(),
-        context.getGenericsNamingStrategy(),
-        context.getIgnorableParameterTypes());
+      final ModelContext modelContext = this.modelContext(context);
       final ModelReference responseModel = modelRefFactory(modelContext, this.nameExtractor) //
         .apply(context.alternateFor(this.typeResolver.resolve(ResolvedError.class)));
 
@@ -124,6 +115,8 @@ public class AfterOperationBuilderBuildPlugin implements OperationBuilderPlugin 
       log.info("error processResponseModel.", ex);
     }
   }
+
+  abstract protected ModelContext modelContext(OperationContext context);
 
   /**
    * 判断是否是成功的响应.
