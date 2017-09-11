@@ -105,7 +105,7 @@ public class SecurityApiDocumentationPlugin implements DocumentationPlugin {
           .groupName(UsernamePasswordAuthenticationFilter.class.getSimpleName())
           .headers(new HeadersRequestCondition())
           .parameters(newArrayList( //
-            //  new ResolvedMethodParameter("username", null, TYPE_RESOLVER.resolve(String.class))
+          //  new ResolvedMethodParameter("username", null, TYPE_RESOLVER.resolve(String.class))
           ))
           .apiOperationInfo(ApiOperationInfo.builder()
             .notes("用户登录请求处理")

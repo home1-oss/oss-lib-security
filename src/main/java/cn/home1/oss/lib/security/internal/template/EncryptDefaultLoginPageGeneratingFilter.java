@@ -33,6 +33,7 @@ import javax.servlet.http.HttpSession;
  * see: {@link DefaultLoginPageGeneratingFilter}
  * Created by zhanghaolun on 16/11/9.
  */
+@SuppressWarnings("PMD")
 public class EncryptDefaultLoginPageGeneratingFilter extends DefaultLoginPageGeneratingFilter {
 
   private String loginPageUrl;

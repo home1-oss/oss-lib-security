@@ -33,7 +33,7 @@ import java.util.Optional;
  * Created by zhanghaolun on 16/10/31.
  */
 @Deprecated
-abstract public class AbstractSecurityApiListingPlugin implements ApiListingBuilderPlugin { //
+public abstract class AbstractSecurityApiListingPlugin implements ApiListingBuilderPlugin { //
   // ApiListingScannerPlugin not working, debug at DocumentationPluginsManager#additionalListings
 
   //  @Override
@@ -69,7 +69,7 @@ abstract public class AbstractSecurityApiListingPlugin implements ApiListingBuil
     return DocumentationType.SWAGGER_2.equals(documentationType);
   }
 
-  abstract protected Class<?> controllerClass(ApiListingContext apiListingContext);
+  protected abstract Class<?> controllerClass(ApiListingContext apiListingContext);
 
   private List<ApiDescription> additionalOperations() {
     return Lists.newArrayList(

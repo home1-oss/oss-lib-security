@@ -3,6 +3,10 @@ package cn.home1.oss.lib.security.swagger;
 import static com.google.common.collect.Sets.newHashSet;
 import static springfox.documentation.schema.ResolvedTypes.modelRefFactory;
 
+import cn.home1.oss.lib.errorhandle.api.ResolvedError;
+import cn.home1.oss.lib.swagger.ManualRequestHandler;
+import cn.home1.oss.lib.swagger.model.ApiOperationInfo;
+
 import com.fasterxml.classmate.TypeResolver;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +28,6 @@ import springfox.documentation.spi.service.contexts.RequestMappingContext;
 
 import java.lang.reflect.Field;
 import java.util.Set;
-
-import cn.home1.oss.lib.errorhandle.api.ResolvedError;
-import cn.home1.oss.lib.swagger.ManualRequestHandler;
-import cn.home1.oss.lib.swagger.model.ApiOperationInfo;
 
 /**
  * Created on 16/11/1. Desc : Run after scanning operationBuilder plugin

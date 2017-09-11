@@ -29,7 +29,7 @@ public class BaseGrantedAuthority implements GrantedAuthority {
   @XmlValue
   private String authority;
 
-  public BaseGrantedAuthority(String role) {
+  public BaseGrantedAuthority(final String role) {
     Assert.hasText(role, "A granted authority textual representation is required");
     this.authority = role;
   }
@@ -39,7 +39,7 @@ public class BaseGrantedAuthority implements GrantedAuthority {
     return this.authority;
   }
 
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
@@ -47,8 +47,9 @@ public class BaseGrantedAuthority implements GrantedAuthority {
     if (obj instanceof BaseGrantedAuthority) {
       return this.authority.equals(((BaseGrantedAuthority) obj).getAuthority());
     }
-    if (obj instanceof SimpleGrantedAuthority)
+    if (obj instanceof SimpleGrantedAuthority) {
       return this.authority.equals(((SimpleGrantedAuthority) obj).getAuthority());
+    }
     return false;
   }
 
