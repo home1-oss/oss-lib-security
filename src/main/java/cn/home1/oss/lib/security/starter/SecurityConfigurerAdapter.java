@@ -11,13 +11,16 @@ public abstract class SecurityConfigurerAdapter<T extends SecurityConfigurerAdap
 
   @Override
   public void init(final WebSecurity builder) {
+    // empty-impl
   }
 
   @Override
   public void configure(final AuthenticationManagerBuilder auth) {
+    // empty-impl
   }
 
   @Override
   public void configure(final HttpSecurity http) {
+    // empty-impl
   }
 }

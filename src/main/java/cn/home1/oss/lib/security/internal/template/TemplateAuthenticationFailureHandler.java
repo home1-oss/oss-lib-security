@@ -31,7 +31,7 @@ public class TemplateAuthenticationFailureHandler implements AuthenticationFailu
   // extends SimpleUrlAuthenticationFailureHandler
 
   private String defaultFailureUrl;
-  private boolean forwardToDestination = false;
+  private boolean forwardToDestination;
   private boolean allowSessionCreation = true;
   private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -43,7 +43,7 @@ public class TemplateAuthenticationFailureHandler implements AuthenticationFailu
     final ExceptionResolver<Throwable> exceptionResolver, //
     final TypeSafeCookie<ResolvedError> resolvedErrorCookie //
   ) {
-    setDefaultFailureUrl(defaultFailureUrl);
+    this.setDefaultFailureUrl(defaultFailureUrl);
     this.exceptionResolver = exceptionResolver;
     this.resolvedErrorCookie = resolvedErrorCookie;
   }
@@ -59,23 +59,29 @@ public class TemplateAuthenticationFailureHandler implements AuthenticationFailu
       this.resolvedErrorCookie.setCookie(request, response, resolvedError.eraseTraces());
     }
 
-    if (defaultFailureUrl == null) {
-      log.debug("No failure URL set, sending 401 Unauthorized error");
+    if (this.defaultFailureUrl == null) {
+      if (log.isDebugEnabled()) {
+        log.debug("No failure URL set, sending 401 Unauthorized error");
+      }
 
       response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
         "Authentication Failed: " + exception.getMessage());
     } else {
       saveException(request, exception);
 
-      if (forwardToDestination) {
-        log.debug("Forwarding to " + defaultFailureUrl);
+      if (this.forwardToDestination) {
+        if (log.isDebugEnabled()) {
+          log.debug("Forwarding to " + this.defaultFailureUrl);
+        }
 
-        request.getRequestDispatcher(defaultFailureUrl)
+        request.getRequestDispatcher(this.defaultFailureUrl)
           .forward(request, response);
       } else {
         final String url = this.defaultFailureUrl + "?error=" + urlEncode(resolvedError.getLocalizedMessage());
-        log.debug("Redirecting to " + url);
-        redirectStrategy.sendRedirect(request, response, url);
+        if (log.isDebugEnabled()) {
+          log.debug("Redirecting to " + url);
+        }
+        this.redirectStrategy.sendRedirect(request, response, url);
       }
     }
   }
@@ -93,12 +99,12 @@ public class TemplateAuthenticationFailureHandler implements AuthenticationFailu
    * @param exception exception
    */
   protected final void saveException(final HttpServletRequest request, final AuthenticationException exception) {
-    if (forwardToDestination) {
+    if (this.forwardToDestination) {
       request.setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, exception);
     } else {
       HttpSession session = request.getSession(false);
 
-      if (session != null || allowSessionCreation) {
+      if (session != null || this.allowSessionCreation) {
         request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, exception);
       }
     }
@@ -109,14 +115,14 @@ public class TemplateAuthenticationFailureHandler implements AuthenticationFailu
    *
    * @param defaultFailureUrl the failure URL, for example "/loginFailed.jsp".
    */
-  public void setDefaultFailureUrl(String defaultFailureUrl) {
+  public final void setDefaultFailureUrl(String defaultFailureUrl) {
     Assert.isTrue(UrlUtils.isValidRedirectUrl(defaultFailureUrl), "'"
       + defaultFailureUrl + "' is not a valid redirect URL");
     this.defaultFailureUrl = defaultFailureUrl;
   }
 
   protected boolean isUseForward() {
-    return forwardToDestination;
+    return this.forwardToDestination;
   }
 
   /**

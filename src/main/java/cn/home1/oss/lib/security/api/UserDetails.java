@@ -30,6 +30,7 @@ import java.util.Set;
 @Setter(PROTECTED)
 @Getter
 @ApiModel
+@SuppressWarnings("PMD")
 public class UserDetails extends AbstractUser {
 
   @ApiModelProperty(dataType = "java.lang.String", example = "ADMIN,USER,OTHER")

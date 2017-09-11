@@ -59,9 +59,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * A generic token of user.
- * Never extends GenericUser, use {@link GenericUser#fromPrincipal} {@link GenericUser#fromUser}.
- * username =&gt; type:id:name:tel:wx
+ * A generic token of user. Never extends GenericUser, use {@link GenericUser#fromPrincipal} {@link
+ * GenericUser#fromUser}. username =&gt; type:id:name:tel:wx
  */
 @XmlRootElement(name = "genericUser")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -73,7 +72,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @Setter(value = PRIVATE)
 @Getter
 @Slf4j
-@SuppressWarnings("serial")
+@SuppressWarnings({"PMD", "serial"})
 public final class GenericUser //
   implements org.springframework.security.core.userdetails.UserDetails, CredentialsContainer {
 

@@ -58,29 +58,30 @@ abstract public class AbstractAfterOperationBuilderBuildPlugin implements Operat
         // get handler
         privateStringField = RequestMappingContext.class.getDeclaredField("handler");
         privateStringField.setAccessible(true);
-        final RequestHandler requestHandler = //
-          (RequestHandler) privateStringField.get(requestMappingContext);
-
-        if (requestHandler != null && requestHandler instanceof ManualRequestHandler) {
-          final ManualRequestHandler manualRequestHandler = (ManualRequestHandler) requestHandler;
-          final ApiOperationInfo apiOperationInfo = manualRequestHandler.getApiOperationInfo();
-
-          if (apiOperationInfo != null) {
-            // 接口描述
-            context.operationBuilder().notes(apiOperationInfo.getNotes());
-            // 请求参数处理
-            if (apiOperationInfo.getApiRequest().getParameters() != null) {
-              context.operationBuilder().parameters(apiOperationInfo.getApiRequest().getParameters());
-            }
-          }
-
-        }
+        final RequestHandler requestHandler = (RequestHandler) privateStringField.get(requestMappingContext);
+        this.processRequestHandler(context, requestHandler);
       }
 
       // 处理响应的错误码对应的ResolveError
       processResponseModel(context);
     } catch (final ReflectiveOperationException ex) {
       log.error("swagger plugin error.", ex);
+    }
+  }
+
+  private void processRequestHandler(final OperationContext context, final RequestHandler requestHandler) {
+    if (requestHandler instanceof ManualRequestHandler) {
+      final ManualRequestHandler manualRequestHandler = (ManualRequestHandler) requestHandler;
+      final ApiOperationInfo apiOperationInfo = manualRequestHandler.getApiOperationInfo();
+
+      if (apiOperationInfo != null) {
+        // 接口描述
+        context.operationBuilder().notes(apiOperationInfo.getNotes());
+        // 请求参数处理
+        if (apiOperationInfo.getApiRequest().getParameters() != null) {
+          context.operationBuilder().parameters(apiOperationInfo.getApiRequest().getParameters());
+        }
+      }
     }
   }
 

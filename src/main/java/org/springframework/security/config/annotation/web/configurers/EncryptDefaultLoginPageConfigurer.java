@@ -29,11 +29,12 @@ import java.util.Map.Entry;
 public class EncryptDefaultLoginPageConfigurer<H extends HttpSecurityBuilder<H>> extends
   AbstractHttpConfigurer<DefaultLoginPageConfigurer<H>, H> {
 
-  private String loginPage;
+  private final String loginPage;
+  private final Boolean useDefaultLoginPage;
+  private final ExceptionResolver<Throwable> exceptionResolver;
+  private final TypeSafeCookie<ResolvedError> resolvedErrorCookie;
+
   private DefaultLoginPageGeneratingFilter loginPageGeneratingFilter;
-  private Boolean useDefaultLoginPage;
-  private ExceptionResolver<Throwable> exceptionResolver;
-  private TypeSafeCookie<ResolvedError> resolvedErrorCookie;
 
   public EncryptDefaultLoginPageConfigurer( //
     final String loginPage, //
@@ -42,6 +43,8 @@ public class EncryptDefaultLoginPageConfigurer<H extends HttpSecurityBuilder<H>>
     final ExceptionResolver<Throwable> exceptionResolver, //
     final TypeSafeCookie<ResolvedError> resolvedErrorCookie //
   ) {
+    super();
+
     final EncryptDefaultLoginPageGeneratingFilter filter = new EncryptDefaultLoginPageGeneratingFilter();
     filter.setRsaPublicKey(publicKey);
     filter.setLoginPageUrl(loginPage);

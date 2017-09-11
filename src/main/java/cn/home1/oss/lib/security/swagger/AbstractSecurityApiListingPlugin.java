@@ -3,7 +3,6 @@ package cn.home1.oss.lib.security.swagger;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import org.springframework.http.HttpMethod;
@@ -54,8 +53,7 @@ public abstract class AbstractSecurityApiListingPlugin implements ApiListingBuil
       ReflectionUtils.makeAccessible(field);
       final Object value = Optional.ofNullable(ReflectionUtils.getField(field, builder)) //
         .orElse(Collections.emptyList());
-      @SuppressWarnings("unchecked")
-      final List<ApiDescription> apis = (List<ApiDescription>) value;
+      @SuppressWarnings("unchecked") final List<ApiDescription> apis = (List<ApiDescription>) value;
 
       final List<ApiDescription> newApis = new ArrayList<>(apis);
       newApis.addAll(this.additionalOperations());
@@ -72,11 +70,11 @@ public abstract class AbstractSecurityApiListingPlugin implements ApiListingBuil
   protected abstract Class<?> controllerClass(ApiListingContext apiListingContext);
 
   private List<ApiDescription> additionalOperations() {
-    return Lists.newArrayList(
+    return newArrayList(
       new ApiDescription( // apiDescription
         "/oauth/token", // path
         "security endpoints", // description, not showed
-        Lists.newArrayList( // operations
+        newArrayList( // operations
           new Operation( // operation
             HttpMethod.POST, // method
             "Retrieve Access Token", // summary
@@ -89,7 +87,7 @@ public abstract class AbstractSecurityApiListingPlugin implements ApiListingBuil
             newHashSet(MediaType.APPLICATION_FORM_URLENCODED_VALUE), // consumes
             Collections.emptySet(), // protocol
             newArrayList(), // securityReferences
-            Lists.newArrayList( // parameters
+            newArrayList( // parameters
               new Parameter( // parameter
                 "grant_type", // name
                 "Grant type", // description
