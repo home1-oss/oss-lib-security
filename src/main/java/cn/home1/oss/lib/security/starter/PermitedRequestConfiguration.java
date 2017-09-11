@@ -22,7 +22,6 @@ import org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConf
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -37,6 +36,7 @@ import java.util.Set;
 
 /**
  * see: {@link SpringBootWebSecurityConfiguration} IgnoredPathsWebSecurityConfigurerAdapter.
+ *
  * Created by zhanghaolun on 16/8/19.
  */
 @Order(PermitedRequestConfiguration.ORDER_PERMITED_REQUEST)
@@ -47,9 +47,6 @@ public class PermitedRequestConfiguration extends SecurityConfigurerAdapter<Perm
   public static final String PERMITED_REQUEST_MATCHER = "permitedRequestMatcher";
 
   public static final int ORDER_PERMITED_REQUEST = SecurityProperties.IGNORED_ORDER + 1;
-
-  @Autowired
-  private Environment environment;
 
   @Autowired
   private AppProperties appProperties;
@@ -89,7 +86,7 @@ public class PermitedRequestConfiguration extends SecurityConfigurerAdapter<Perm
 
   @Override
   public void configure(final HttpSecurity http) {
-
+    // empty-impl
   }
 
   @Bean(name = PERMITED_REQUEST_MATCHER)

@@ -6,4 +6,6 @@ package cn.home1.oss.lib.security.api;
  */
 public abstract class AbstractStaticPrivilege extends AbstractGrantedAuthority implements StaticPrivilege {
 
+  protected AbstractStaticPrivilege() {
+  }
 }

@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class TemplateAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint {
 
-  private ExceptionResolver<Throwable> exceptionResolver;
-  private TypeSafeCookie<ResolvedError> resolvedErrorCookie;
+  private final ExceptionResolver<Throwable> exceptionResolver;
+  private final TypeSafeCookie<ResolvedError> resolvedErrorCookie;
 
   /**
    * @param loginFormUrl        URL where the login page can be found. Should either be relative to the web-app context

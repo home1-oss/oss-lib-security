@@ -30,13 +30,13 @@ import javax.servlet.http.HttpSession;
 public class TemplateAuthenticationFailureHandler implements AuthenticationFailureHandler {
   // extends SimpleUrlAuthenticationFailureHandler
 
+  private final ExceptionResolver<Throwable> exceptionResolver;
+  private final TypeSafeCookie<ResolvedError> resolvedErrorCookie;
+
   private String defaultFailureUrl;
   private boolean forwardToDestination;
   private boolean allowSessionCreation = true;
   private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
-  private ExceptionResolver<Throwable> exceptionResolver;
-  private TypeSafeCookie<ResolvedError> resolvedErrorCookie;
 
   public TemplateAuthenticationFailureHandler( //
     final String defaultFailureUrl, //
@@ -115,7 +115,7 @@ public class TemplateAuthenticationFailureHandler implements AuthenticationFailu
    *
    * @param defaultFailureUrl the failure URL, for example "/loginFailed.jsp".
    */
-  public final void setDefaultFailureUrl(String defaultFailureUrl) {
+  public final void setDefaultFailureUrl(final String defaultFailureUrl) {
     Assert.isTrue(UrlUtils.isValidRedirectUrl(defaultFailureUrl), "'"
       + defaultFailureUrl + "' is not a valid redirect URL");
     this.defaultFailureUrl = defaultFailureUrl;
@@ -152,7 +152,7 @@ public class TemplateAuthenticationFailureHandler implements AuthenticationFailu
     return this.allowSessionCreation;
   }
 
-  public void setAllowSessionCreation(boolean allowSessionCreation) {
+  public void setAllowSessionCreation(final boolean allowSessionCreation) {
     this.allowSessionCreation = allowSessionCreation;
   }
 

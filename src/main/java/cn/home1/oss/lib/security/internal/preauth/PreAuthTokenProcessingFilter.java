@@ -25,7 +25,6 @@ import org.springframework.security.web.authentication.NullRememberMeServices;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
@@ -50,11 +49,12 @@ import javax.servlet.http.HttpServletResponse;
 @Setter
 @Getter(value = PROTECTED)
 @Slf4j
+@SuppressWarnings("PMD.ImmutableField")
 public class PreAuthTokenProcessingFilter extends GenericFilterBean {
 
   /**
-   * will be invoked when authentication fails. Typically an instance of {@link
-   * BasicAuthenticationEntryPoint}.
+   * will be invoked when authentication fails. Typically an instance of
+   * {@link org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint}.
    */
   private AuthenticationEntryPoint authenticationEntryPoint;
   /**
@@ -126,7 +126,7 @@ public class PreAuthTokenProcessingFilter extends GenericFilterBean {
     return Security.authenticationIsRequired();
   }
 
-  @SuppressWarnings({"squid:S1172"})
+  @SuppressWarnings({"PMD.UnusedFormalParameter", "squid:S1172"})
   private AbstractAuthenticationToken attempAuthentication( //
     final HttpServletRequest request, //
     final GenericUser principal, //

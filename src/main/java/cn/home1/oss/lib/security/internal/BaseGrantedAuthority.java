@@ -40,17 +40,21 @@ public class BaseGrantedAuthority implements GrantedAuthority {
   }
 
   public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
+    final boolean result;
+
+    if (this != obj) {
+      if (obj instanceof BaseGrantedAuthority) {
+        result = this.authority.equals(((BaseGrantedAuthority) obj).getAuthority());
+      } else if (obj instanceof SimpleGrantedAuthority) {
+        result = this.authority.equals(((SimpleGrantedAuthority) obj).getAuthority());
+      } else {
+        result = false;
+      }
+    } else {
+      result = false;
     }
 
-    if (obj instanceof BaseGrantedAuthority) {
-      return this.authority.equals(((BaseGrantedAuthority) obj).getAuthority());
-    }
-    if (obj instanceof SimpleGrantedAuthority) {
-      return this.authority.equals(((SimpleGrantedAuthority) obj).getAuthority());
-    }
-    return false;
+    return result;
   }
 
   public int hashCode() {

@@ -3,8 +3,6 @@ package cn.home1.oss.lib.security.swagger;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
 
-import com.google.common.collect.Sets;
-
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -82,7 +80,7 @@ public abstract class AbstractSecurityApiListingPlugin implements ApiListingBuil
             null, // responseModel
             "oauth-token", // uniqueId
             0, // position
-            Sets.newHashSet("oauth2-filter"), // tags
+            newHashSet("oauth2-filter"), // tags
             newHashSet(MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE), // produces
             newHashSet(MediaType.APPLICATION_FORM_URLENCODED_VALUE), // consumes
             Collections.emptySet(), // protocol
@@ -104,7 +102,7 @@ public abstract class AbstractSecurityApiListingPlugin implements ApiListingBuil
                 newArrayList() // vendorExtensions
               )
             ),
-            Sets.newHashSet( // responseMessages
+            newHashSet( // responseMessages
               new ResponseMessage( // responseMessage
                 HttpStatus.OK.value(), // code
                 HttpStatus.OK.getReasonPhrase(), // message
