@@ -18,6 +18,7 @@ import java.util.Collection;
 /**
  * Created by zhanghaolun on 16/10/30.
  */
+@SuppressWarnings({"PMD.AbstractNaming", "PMD.AbstractClassWithoutAbstractMethod"})
 public abstract class AuthenticationTokens {
 
   private AuthenticationTokens() {

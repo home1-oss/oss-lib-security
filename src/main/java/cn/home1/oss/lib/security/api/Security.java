@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
+@SuppressWarnings({"PMD.AbstractNaming", "PMD.AbstractClassWithoutAbstractMethod"})
 public abstract class Security {
 
   public static final String AUTHORITY_PREFIX = "AUTHORITY_";

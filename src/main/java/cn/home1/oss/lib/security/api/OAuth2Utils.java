@@ -20,6 +20,7 @@ import java.util.Set;
 /**
  * Created by zhanghaolun on 16/11/22.
  */
+@SuppressWarnings({"PMD.AbstractNaming", "PMD.AbstractClassWithoutAbstractMethod"})
 abstract class OAuth2Utils {
 
   private OAuth2Utils() {
@@ -30,30 +31,34 @@ abstract class OAuth2Utils {
   }
 
   static GenericUser fromOAuth2Authentication(final Principal principal) {
+    final GenericUser result;
+
     final OAuth2Authentication oauth2Authentication = (OAuth2Authentication) principal;
-
     final Authentication auth = oauth2Authentication.getUserAuthentication();
+
     if (oauth2Authentication.isClientOnly() || auth == null || auth.getDetails() == null) {
-      return null;
+      result = null;
+    } else {
+      final boolean accountNonExpired = true;
+      final boolean accountNonLocked = true;
+      @SuppressWarnings("unchecked")
+      final Map<String, Object> details = (Map<String, Object>) auth.getDetails();
+      @SuppressWarnings("unchecked")
+      final Set<GrantedAuthority> authorities =
+        ((Collection<Map<String, String>>) details.get("authorities")).stream()
+          .map(authority -> new BaseGrantedAuthority(authority.get("authority")))
+          .collect(toSet());
+      final boolean credentialsNonExpired = true;
+      final boolean enabled = true;
+      final String password = System.getProperty("blankPassword", "");
+      final String username = auth.getPrincipal().toString();
+      final String uuid = ((OAuth2AuthenticationDetails) oauth2Authentication.getDetails()).getTokenValue();
+
+      result = new GenericUser(accountNonExpired, accountNonLocked, authorities, credentialsNonExpired,
+        enabled, password, username, ImmutableMap.of(), // TODO pass properties ?
+        Defaults.now(), uuid);
     }
-
-    final boolean accountNonExpired = true;
-    final boolean accountNonLocked = true;
-    @SuppressWarnings("unchecked")
-    final Map<String, Object> details = (Map<String, Object>) auth.getDetails();
-    @SuppressWarnings("unchecked")
-    final Set<GrantedAuthority> authorities =
-      ((Collection<Map<String, String>>) details.get("authorities")).stream()
-        .map(authority -> new BaseGrantedAuthority(authority.get("authority")))
-        .collect(toSet());
-    final boolean credentialsNonExpired = true;
-    final boolean enabled = true;
-    final String password = System.getProperty("blankPassword", "");
-    final String username = auth.getPrincipal().toString();
-    final String uuid = ((OAuth2AuthenticationDetails) oauth2Authentication.getDetails()).getTokenValue();
-
-    return new GenericUser(accountNonExpired, accountNonLocked, authorities, credentialsNonExpired,
-      enabled, password, username, ImmutableMap.of(), // TODO pass properties ?
-      Defaults.now(), uuid);
+    
+    return result;
   }
 }
