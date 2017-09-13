@@ -65,6 +65,8 @@ public class PreAuthTokenProcessingFilter extends GenericFilterBean {
   private RememberMeServices rememberMeServices;
 
   public PreAuthTokenProcessingFilter() {
+    super();
+
     this.authenticationEntryPoint = null;
     this.authenticationManager = new NoOpAuthenticationManager();
 

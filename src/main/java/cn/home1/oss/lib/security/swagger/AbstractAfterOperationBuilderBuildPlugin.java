@@ -100,7 +100,7 @@ abstract public class AbstractAfterOperationBuilderBuildPlugin implements Operat
         .apply(context.alternateFor(this.typeResolver.resolve(ResolvedError.class)));
 
       final Set<ResponseMessage> responseMessagesProcessed = newHashSet();
-      responseMessages.stream().forEach((responseMessage -> {
+      responseMessages.forEach(responseMessage -> {
         if (!isSuccessful(responseMessage.getCode())) {
           responseMessagesProcessed.add(new ResponseMessageBuilder()
             .code(responseMessage.getCode())
@@ -108,7 +108,7 @@ abstract public class AbstractAfterOperationBuilderBuildPlugin implements Operat
             .responseModel(responseModel)
             .build());
         }
-      }));
+      });
       if (!responseMessagesProcessed.isEmpty()) {
         context.operationBuilder().responseMessages(responseMessagesProcessed);
       }
@@ -123,12 +123,14 @@ abstract public class AbstractAfterOperationBuilderBuildPlugin implements Operat
    * 判断是否是成功的响应.
    */
   private static boolean isSuccessful(final int code) {
+    boolean result;
     try {
-      return HttpStatus.Series.SUCCESSFUL.equals(HttpStatus.Series.valueOf(code));
+      result = HttpStatus.Series.SUCCESSFUL.equals(HttpStatus.Series.valueOf(code));
     } catch (final Exception ignored) {
       log.info("error check httpStatus {}.", code, ignored);
-      return false;
+      result = false;
     }
+    return result;
   }
 
   @Override

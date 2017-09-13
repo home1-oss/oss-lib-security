@@ -24,32 +24,33 @@ public abstract class Security {
     final SecurityContext securityContext = SecurityContextHolder.getContext();
     final Authentication existingAuth = securityContext.getAuthentication();
 
+    boolean result = false;
     if (existingAuth == null || !existingAuth.isAuthenticated()) {
-      return true;
-    }
-
-    // Limit username comparison to providers which use usernames (ie
-    // UsernamePasswordAuthenticationToken, PreAuthenticatedAuthenticationToken)
-    // (see SEC-348)
-    if (existingAuth instanceof PreAuthenticatedAuthenticationToken) {
+      result = true;
+    } else if (existingAuth instanceof PreAuthenticatedAuthenticationToken) {
+      // Limit username comparison to providers which use usernames (ie
+      // UsernamePasswordAuthenticationToken, PreAuthenticatedAuthenticationToken)
+      // (see SEC-348)
       final GenericUser unknown_user = GenericUser.unknownUser();
       if (!existingAuth.getName().equals(unknown_user.getUsername())) {
-        return true;
+        result = true;
       }
+    } else {
+      // Handle unusual condition where an AnonymousAuthenticationToken is already present
+      // This shouldn't happen very often, as BasicProcessingFitler is meant to be earlier in the
+      // filter
+      // chain than AnonymousAuthenticationFilter. Nevertheless, presence of both an
+      // AnonymousAuthenticationToken
+      // together with a BASIC authentication request header should indicate reauthentication using
+      // the
+      // BASIC protocol is desirable. This behaviour is also consistent with that provided by form and
+      // digest,
+      // both of which force re-authentication if the respective header is detected (and in doing so
+      // replace
+      // any existing AnonymousAuthenticationToken). See SEC-610.
+      result = existingAuth instanceof AnonymousAuthenticationToken;
     }
 
-    // Handle unusual condition where an AnonymousAuthenticationToken is already present
-    // This shouldn't happen very often, as BasicProcessingFitler is meant to be earlier in the
-    // filter
-    // chain than AnonymousAuthenticationFilter. Nevertheless, presence of both an
-    // AnonymousAuthenticationToken
-    // together with a BASIC authentication request header should indicate reauthentication using
-    // the
-    // BASIC protocol is desirable. This behaviour is also consistent with that provided by form and
-    // digest,
-    // both of which force re-authentication if the respective header is detected (and in doing so
-    // replace
-    // any existing AnonymousAuthenticationToken). See SEC-610.
-    return existingAuth instanceof AnonymousAuthenticationToken;
+    return result;
   }
 }

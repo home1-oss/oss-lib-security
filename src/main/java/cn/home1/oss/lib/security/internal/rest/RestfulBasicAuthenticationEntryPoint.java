@@ -34,11 +34,11 @@ public class RestfulBasicAuthenticationEntryPoint implements AuthenticationEntry
 
   @Override
   public void commence( //
-      final HttpServletRequest request, //
-      final HttpServletResponse response, //
-      final AuthenticationException authException //
+    final HttpServletRequest request, //
+    final HttpServletResponse response, //
+    final AuthenticationException authException //
   ) throws IOException, ServletException {
-    response.addHeader("WWW-Authenticate", "Basic realm=\"" + this.getRealmName() + "\"");
+    response.addHeader("WWW-Authenticate", "Basic realm=\"" + this.realmName + "\"");
 
     // response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     // response.getWriter().println("HTTP Status 401 - " + authException.getMessage());

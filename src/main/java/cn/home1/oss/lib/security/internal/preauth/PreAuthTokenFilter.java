@@ -64,7 +64,7 @@ public class PreAuthTokenFilter extends GenericFilterBean {
     final HttpServletResponse response = (HttpServletResponse) res;
 
     if (this.authenticationIsRequired()) {
-      Object[] principalAndToken = this.findPrincipalAndToken(request);
+      final Object[] principalAndToken = this.findPrincipalAndToken(request);
       final GenericUser principalFound = (GenericUser) principalAndToken[0];
       final String tokenFound = (String) principalAndToken[1];
 
