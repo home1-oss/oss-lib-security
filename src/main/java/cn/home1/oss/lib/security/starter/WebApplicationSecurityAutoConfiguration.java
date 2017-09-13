@@ -104,7 +104,7 @@ public class WebApplicationSecurityAutoConfiguration extends WebSecurityConfigur
   // ApprovalStoreUserApprovalHandler#updateAfterApproval
   @Override
   protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-    for (final SecurityConfigurer configurer : this.securityConfigurers()) {
+    for (final SecurityConfigurer configurer : this.sortedSecurityConfigurers()) {
       configurer.configure(auth);
     }
 
@@ -153,7 +153,7 @@ public class WebApplicationSecurityAutoConfiguration extends WebSecurityConfigur
       }
     }
 
-    for (final SecurityConfigurer configurer : this.securityConfigurers()) {
+    for (final SecurityConfigurer configurer : this.sortedSecurityConfigurers()) {
       configurer.configure(http);
     }
 
@@ -173,13 +173,13 @@ public class WebApplicationSecurityAutoConfiguration extends WebSecurityConfigur
 
   @Override
   public void init(final WebSecurity web) throws Exception {
-    for (final SecurityConfigurer configurer : this.securityConfigurers()) {
+    for (final SecurityConfigurer configurer : this.sortedSecurityConfigurers()) {
       configurer.init(web);
     }
     super.init(web);
   }
 
-  public List<SecurityConfigurer> securityConfigurers() {
+  public List<SecurityConfigurer> sortedSecurityConfigurers() {
     final List<SecurityConfigurer> all = this.securityConfigurers != null ? this.securityConfigurers : newArrayList();
     final List<SecurityConfigurer> sorted = all.stream().sorted().collect(toList());
     for (final SecurityConfigurer configurer : sorted) {

@@ -23,7 +23,6 @@ import cn.home1.oss.lib.security.internal.preauth.PreAuthTokenProcessingFilter;
 import cn.home1.oss.lib.webmvc.api.DomainResolver;
 import cn.home1.oss.lib.webmvc.api.JsonToken;
 import cn.home1.oss.lib.webmvc.api.JsonWebToken;
-import cn.home1.oss.lib.webmvc.api.RequestResolver;
 import cn.home1.oss.lib.webmvc.api.SecureToken;
 import cn.home1.oss.lib.webmvc.api.TokenBasedCookie;
 import cn.home1.oss.lib.webmvc.api.TypeSafeCookie;
@@ -75,8 +74,6 @@ public class PreAuthConfiguration extends SecurityConfigurerAdapter<PreAuthConfi
   @Qualifier(PERMITED_REQUEST_MATCHER)
   @Autowired(required = false)
   private RequestMatcher permitedRequestMatcher;
-  @Autowired
-  private RequestResolver requestResolver;
   @Autowired
   private ServerProperties serverProperties;
 

@@ -94,7 +94,7 @@ public abstract class BaseUserDetailsAuthenticationProvider<U extends User>
       throw new UsernameNotFoundException(username);
     }
 
-    final PasswordEncoder passwordEncoder = this.getPasswordEncoder();
+    final PasswordEncoder passwordEncoder = this.passwordEncoder;
     final Boolean passwordMatches;
     if (passwordEncoder != null) {
       passwordMatches = passwordEncoder.matches(password, user.getPassword());
@@ -137,7 +137,7 @@ public abstract class BaseUserDetailsAuthenticationProvider<U extends User>
           .stream() //
           .map(role -> new BaseGrantedAuthority(Security.ROLE_PREFIX + role)) //
           .collect(toSet());
-        final PasswordEncoder passwordEncoder = this.getPasswordEncoder();
+        final PasswordEncoder passwordEncoder = this.passwordEncoder;
         final String password = passwordEncoder != null ? //
           passwordEncoder.encode(securityUser.getPassword()) : securityUser.getPassword();
 

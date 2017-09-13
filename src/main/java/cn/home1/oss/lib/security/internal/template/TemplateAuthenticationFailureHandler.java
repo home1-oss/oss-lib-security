@@ -102,7 +102,7 @@ public class TemplateAuthenticationFailureHandler implements AuthenticationFailu
     if (this.forwardToDestination) {
       request.setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, exception);
     } else {
-      HttpSession session = request.getSession(false);
+      final HttpSession session = request.getSession(false);
 
       if (session != null || this.allowSessionCreation) {
         request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, exception);
